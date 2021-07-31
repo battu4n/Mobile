@@ -2,22 +2,24 @@
 import unittest
 from appium import webdriver
 from time import sleep
-
-
+import os
+os.system("start /B start cmd.exe @cmd /k appium ")
 
 class gmail(unittest.TestCase):
     def setUp(self):
+
         "Setup for the test"
         desired_caps = {}
         desired_caps['platformName'] = 'Android'
         #desired_caps['platformVersion'] = '8.1.0'
-        desired_caps['deviceName'] = 'Android Emulator'
+        desired_caps['deviceName'] = 'Pixel 4a'
         # Returns abs path relative to this file and not cwd
         #desired_caps['app'] = os.path.abspath(
             #os.path.join(os.path.dirname(__file__), '/Users/battun/Downloads/gmail.apk'))
         desired_caps['appPackage'] = 'com.google.android.gm'
         desired_caps['appActivity'] = '.ConversationListActivityGmail'
         self.driver=webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
+    def test_launch(self):
         sleep(10)
         if (self.driver.find_element_by_xpath("//android.widget.TextView[@text ='GOT IT']").is_displayed()):
             self.driver.find_element_by_xpath("//android.widget.TextView[@text ='GOT IT']").click()
@@ -34,6 +36,7 @@ class gmail(unittest.TestCase):
              self.driver.find_element_by_xpath("//android.widget.Button[@text ='OK']").click()"""
 
     def tearDown(self):
+
         self.driver.quit()
 
     def test_gmail_compose(self):
